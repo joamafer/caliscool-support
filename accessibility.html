@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accessibility — Caliscool</title>
+    <meta name="description" content="Caliscool is designed for everyone. Learn about our accessibility features including VoiceOver, Dynamic Type, Reduce Motion, and more.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #0a0a0b;
+            --bg-card: #151517;
+            --bg-card-hover: #1c1c1f;
+            --text-primary: #ffffff;
+            --text-secondary: #9ca3af;
+            --accent: #7c3aed;
+            --accent-light: #a78bfa;
+            --accent-glow: rgba(124, 58, 237, 0.4);
+            --gold: #d4a84b;
+            --green: #10b981;
+            --orange: #f59e0b;
+            --blue: #06b6d4;
+            --pink: #ec4899;
+            --gradient-1: linear-gradient(135deg, #7c3aed 0%, #ec4899 100%);
+            --gradient-2: linear-gradient(135deg, #06b6d4 0%, #10b981 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 20px 0;
+            background: rgba(10, 10, 11, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-primary);
+        }
+
+        .download-btn {
+            background: var(--accent);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 40px var(--accent-glow);
+        }
+
+        /* Hero */
+        .hero {
+            padding: 160px 0 100px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 50% 30%, var(--accent-glow) 0%, transparent 40%),
+                        radial-gradient(circle at 70% 70%, rgba(16, 185, 129, 0.15) 0%, transparent 40%);
+            animation: float 20s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            50% { transform: translate(-20px, 20px) rotate(5deg); }
+        }
+
+        .hero .container {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(16, 185, 129, 0.12);
+            color: var(--green);
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 32px;
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero h1 span {
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto 48px;
+        }
+
+        /* Badges row */
+        .badges-row {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 48px;
+        }
+
+        .a11y-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 10px 18px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            transition: border-color 0.2s, transform 0.2s;
+        }
+
+        .a11y-badge:hover {
+            border-color: rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .a11y-badge svg {
+            width: 18px;
+            height: 18px;
+            color: var(--green);
+            flex-shrink: 0;
+        }
+
+        /* Stats */
+        .stats {
+            padding: 80px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .stats .container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            text-align: center;
+        }
+
+        .stat-item .number {
+            font-size: 3rem;
+            font-weight: 800;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-item .label {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            margin-top: 8px;
+        }
+
+        /* Section styling */
+        .section-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 16px;
+        }
+
+        .section-header p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Features grid */
+        .features {
+            padding: 120px 0;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .feature-card {
+            background: var(--bg-card);
+            border-radius: 20px;
+            padding: 32px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: transform 0.3s, border-color 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .feature-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+
+        .feature-icon.purple { background: rgba(124, 58, 237, 0.15); }
+        .feature-icon.green { background: rgba(16, 185, 129, 0.15); }
+        .feature-icon.orange { background: rgba(245, 158, 11, 0.15); }
+        .feature-icon.blue { background: rgba(6, 182, 212, 0.15); }
+        .feature-icon.pink { background: rgba(236, 72, 153, 0.15); }
+        .feature-icon.gold { background: rgba(212, 168, 75, 0.15); }
+
+        .feature-card h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .feature-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Deep dive section */
+        .deep-dive {
+            padding: 120px 0;
+            background: linear-gradient(180deg, transparent 0%, rgba(124, 58, 237, 0.05) 50%, transparent 100%);
+        }
+
+        .deep-dive-list {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .deep-dive-item {
+            background: var(--bg-card);
+            border-radius: 20px;
+            padding: 36px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            display: grid;
+            grid-template-columns: 64px 1fr;
+            gap: 24px;
+            align-items: start;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .deep-dive-item:hover {
+            transform: translateX(5px);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .deep-dive-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.75rem;
+            flex-shrink: 0;
+        }
+
+        .deep-dive-item h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .deep-dive-item p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        .deep-dive-item .tag {
+            display: inline-block;
+            margin-top: 12px;
+            background: rgba(124, 58, 237, 0.12);
+            color: var(--accent-light);
+            padding: 4px 12px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        /* Languages section */
+        .languages {
+            padding: 120px 0;
+        }
+
+        .lang-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 16px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .lang-item {
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 14px;
+            padding: 20px 16px;
+            text-align: center;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .lang-item:hover {
+            transform: translateY(-3px);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .lang-item .flag {
+            font-size: 1.75rem;
+            margin-bottom: 8px;
+        }
+
+        .lang-item .name {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+
+        /* Commitment / CTA */
+        .commitment {
+            padding: 120px 0;
+            text-align: center;
+            position: relative;
+        }
+
+        .commitment::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at center, var(--accent-glow) 0%, transparent 60%);
+            opacity: 0.5;
+        }
+
+        .commitment .container {
+            position: relative;
+            z-index: 1;
+        }
+
+        .commitment h2 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 24px;
+        }
+
+        .commitment p {
+            color: var(--text-secondary);
+            font-size: 1.25rem;
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--text-primary);
+            color: var(--bg-dark);
+            padding: 16px 28px;
+            border-radius: 14px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 40px rgba(255, 255, 255, 0.15);
+        }
+
+        .btn-primary svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        /* Footer */
+        footer {
+            padding: 60px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        footer .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--text-primary);
+        }
+
+        .copyright {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .lang-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .stats .container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-header h2 {
+                font-size: 2rem;
+            }
+
+            .commitment h2 {
+                font-size: 2rem;
+            }
+
+            .deep-dive-item {
+                grid-template-columns: 1fr;
+            }
+
+            .lang-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            footer .container {
+                flex-direction: column;
+                gap: 24px;
+                text-align: center;
+            }
+
+            .footer-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .badges-row {
+                gap: 8px;
+            }
+
+            .a11y-badge {
+                font-size: 0.8rem;
+                padding: 8px 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <a href="index.html" class="logo">Caliscool</a>
+            <ul class="nav-links">
+                <li><a href="index.html#features">Features</a></li>
+                <li><a href="index.html#exercises">Exercises</a></li>
+                <li><a href="index.html#pricing">Pricing</a></li>
+                <li><a href="support.html">Support</a></li>
+            </ul>
+            <a href="https://apps.apple.com/app/id6758521484" class="download-btn">Download</a>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-badge">
+                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                </svg>
+                7 Apple Accessibility Features Supported
+            </div>
+            <h1>Built for <span>everyone</span></h1>
+            <p>Accessibility isn't an afterthought in Caliscool. Every screen, every interaction, and every feature is designed so that everyone can train — regardless of ability.</p>
+
+            <div class="badges-row">
+                <div class="a11y-badge">
+                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+                    VoiceOver
+                </div>
+                <div class="a11y-badge">
+                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+                    Voice Control
+                </div>
+                <div class="a11y-badge">
+                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+                    Larger Text
+                </div>
+                <div class="a11y-badge">
+                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+                    Dark Interface
+                </div>
+                <div class="a11y-badge">
+                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+                    Color Independent
+                </div>
+                <div class="a11y-badge">
+                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+                    Sufficient Contrast
+                </div>
+                <div class="a11y-badge">
+                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+                    Reduced Motion
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats -->
+    <section class="stats">
+        <div class="container">
+            <div class="stat-item">
+                <div class="number">7</div>
+                <div class="label">Apple Accessibility Features</div>
+            </div>
+            <div class="stat-item">
+                <div class="number">15</div>
+                <div class="label">Languages Supported</div>
+            </div>
+            <div class="stat-item">
+                <div class="number">100%</div>
+                <div class="label">VoiceOver Coverage</div>
+            </div>
+            <div class="stat-item">
+                <div class="number">200+</div>
+                <div class="label">Accessible Exercises</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Overview -->
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-header">
+                <h2>Accessibility at every level</h2>
+                <p>From vision to motor to cognitive — Caliscool respects every user's needs and system preferences.</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon purple">
+                        <svg width="28" height="28" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" /><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+                    </div>
+                    <h3>VoiceOver</h3>
+                    <p>Every screen is fully navigable with VoiceOver. Exercises, blocks, filters, and progression paths are all properly labeled with hints and semantic traits.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon green">
+                        <svg width="28" height="28" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18.75a6 6 0 006-6v-1.5m-6 7.5a6 6 0 01-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 01-3-3V4.5a3 3 0 116 0v8.25a3 3 0 01-3 3z" /></svg>
+                    </div>
+                    <h3>Voice Control</h3>
+                    <p>Navigate the entire app using only your voice. Every button and control has a clear accessible label that Voice Control can target by name.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon orange">
+                        <svg width="28" height="28" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M7.5 3.75H6A2.25 2.25 0 003.75 6v1.5M16.5 3.75H18A2.25 2.25 0 0120.25 6v1.5m0 9V18A2.25 2.25 0 0118 20.25h-1.5m-9 0H6A2.25 2.25 0 013.75 18v-1.5M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+                    </div>
+                    <h3>Dynamic Type</h3>
+                    <p>All text scales with your system font size. Layouts intelligently reflow — filter chips wrap, cards adapt, and nothing gets cut off or overlaps.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon blue">
+                        <svg width="28" height="28" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z" /></svg>
+                    </div>
+                    <h3>Dark Interface</h3>
+                    <p>Full dark mode support built into every screen. Semantic system colors ensure perfect contrast in both light and dark appearance.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon pink">
+                        <svg width="28" height="28" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9.53 16.122a3 3 0 00-5.78 1.128 2.25 2.25 0 01-2.4 2.245 4.5 4.5 0 008.4-2.245c0-.399-.078-.78-.22-1.128zm0 0a15.998 15.998 0 003.388-1.62m-5.043-.025a15.994 15.994 0 011.622-3.395m3.42 3.42a15.995 15.995 0 004.764-4.648l3.876-5.814a1.151 1.151 0 00-1.597-1.597L14.146 6.32a15.996 15.996 0 00-4.649 4.763m3.42 3.42a6.776 6.776 0 00-3.42-3.42" /></svg>
+                    </div>
+                    <h3>Color Independent</h3>
+                    <p>When Differentiate Without Color is enabled, selected filters show checkmarks and borders — so you never rely on color alone to see what's active.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon gold">
+                        <svg width="28" height="28" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" /></svg>
+                    </div>
+                    <h3>Sufficient Contrast</h3>
+                    <p>When Increase Contrast is enabled, gradients over images become stronger and borders thicken — keeping text readable in every context.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Deep Dive -->
+    <section class="deep-dive" id="details">
+        <div class="container">
+            <div class="section-header">
+                <h2>How it works under the hood</h2>
+                <p>Here's what we've built to make sure Caliscool works for everyone.</p>
+            </div>
+            <div class="deep-dive-list">
+                <div class="deep-dive-item">
+                    <div class="deep-dive-icon" style="background: rgba(124, 58, 237, 0.15);">
+                        <svg width="30" height="30" fill="none" viewBox="0 0 24 24" stroke="#a78bfa" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9.568 3H5.25A2.25 2.25 0 003 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 005.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 009.568 3z" /><path stroke-linecap="round" stroke-linejoin="round" d="M6 6h.008v.008H6V6z" /></svg>
+                    </div>
+                    <div>
+                        <h3>Semantic Labels & Hints</h3>
+                        <p>Every interactive element has a clear accessibility label and descriptive hint. Exercises announce their name, difficulty, and muscles. Blocks describe their content and exercise count. Filters announce their selection state.</p>
+                        <span class="tag">VoiceOver</span>
+                    </div>
+                </div>
+                <div class="deep-dive-item">
+                    <div class="deep-dive-icon" style="background: rgba(16, 185, 129, 0.15);">
+                        <svg width="30" height="30" fill="none" viewBox="0 0 24 24" stroke="#10b981" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M10.34 15.84c-.688-.06-1.386-.09-2.09-.09H7.5a4.5 4.5 0 110-9h.75c.704 0 1.402-.03 2.09-.09m0 9.18c.253.962.584 1.892.985 2.783.247.55.06 1.21-.463 1.511l-.657.38c-.551.318-1.26.117-1.527-.461a20.845 20.845 0 01-1.44-4.282m3.102.069a18.03 18.03 0 01-.59-4.59c0-1.586.205-3.124.59-4.59m0 9.18a23.848 23.848 0 018.835 2.535M10.34 6.66a23.847 23.847 0 008.835-2.535m0 0A23.74 23.74 0 0018.795 3m.38 1.125a23.91 23.91 0 011.014 5.395m-1.014 8.855c-.118.38-.245.754-.38 1.125m.38-1.125a23.91 23.91 0 001.014-5.395m0-3.46c.495.413.811 1.035.811 1.73 0 .695-.316 1.317-.811 1.73m0-3.46a24.347 24.347 0 010 3.46" /></svg>
+                    </div>
+                    <div>
+                        <h3>Live Announcements</h3>
+                        <p>When you filter exercises, VoiceOver announces the result count in real time — "12 results found" or "No results found" — so you always know the outcome without needing to explore the list.</p>
+                        <span class="tag">VoiceOver</span>
+                    </div>
+                </div>
+                <div class="deep-dive-item">
+                    <div class="deep-dive-icon" style="background: rgba(245, 158, 11, 0.15);">
+                        <svg width="30" height="30" fill="none" viewBox="0 0 24 24" stroke="#f59e0b" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15" /></svg>
+                    </div>
+                    <div>
+                        <h3>Large Content Viewer</h3>
+                        <p>Small UI elements like muscle filter chips, difficulty badges, and indicators support iOS Large Content Viewer. Long-press any small control and a magnified version appears at the center of the screen.</p>
+                        <span class="tag">Vision</span>
+                    </div>
+                </div>
+                <div class="deep-dive-item">
+                    <div class="deep-dive-icon" style="background: rgba(6, 182, 212, 0.15);">
+                        <svg width="30" height="30" fill="none" viewBox="0 0 24 24" stroke="#06b6d4" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15.042 21.672L13.684 16.6m0 0l-2.51 2.225.569-9.47 5.227 7.917-3.286-.672zM12 2.25V4.5m5.834.166l-1.591 1.591M20.25 10.5H18M7.757 14.743l-1.59 1.59M6 10.5H3.75m4.007-4.243l-1.59-1.59" /></svg>
+                    </div>
+                    <div>
+                        <h3>Smart Touch Targets</h3>
+                        <p>All interactive elements meet Apple's minimum 44pt touch target. Buttons, chips, and navigation items have generous padding so they're easy to tap for everyone — including people with reduced motor control.</p>
+                        <span class="tag">Motor</span>
+                    </div>
+                </div>
+                <div class="deep-dive-item">
+                    <div class="deep-dive-icon" style="background: rgba(236, 72, 153, 0.15);">
+                        <svg width="30" height="30" fill="none" viewBox="0 0 24 24" stroke="#ec4899" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.455 2.456L21.75 6l-1.036.259a3.375 3.375 0 00-2.455 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z" /></svg>
+                    </div>
+                    <div>
+                        <h3>Reduced Motion</h3>
+                        <p>All animations throughout the app respect the Reduce Motion preference. When enabled, transitions simplify or disable entirely — so people with vestibular sensitivity can use the app comfortably.</p>
+                        <span class="tag">Motion</span>
+                    </div>
+                </div>
+                <div class="deep-dive-item">
+                    <div class="deep-dive-icon" style="background: rgba(212, 168, 75, 0.15);">
+                        <svg width="30" height="30" fill="none" viewBox="0 0 24 24" stroke="#d4a84b" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.098 19.902a3.75 3.75 0 005.304 0l6.401-6.402M6.75 21A3.75 3.75 0 013 17.25V4.125C3 3.504 3.504 3 4.125 3h5.25c.621 0 1.125.504 1.125 1.125v4.072M6.75 21a3.75 3.75 0 003.75-3.75V8.197M6.75 21h13.125c.621 0 1.125-.504 1.125-1.125v-5.25c0-.621-.504-1.125-1.125-1.125h-4.072M10.5 8.197l2.88-2.88c.438-.439 1.15-.439 1.59 0l3.712 3.713c.44.44.44 1.152 0 1.59l-2.879 2.88M6.75 17.25h.008v.008H6.75v-.008z" /></svg>
+                    </div>
+                    <div>
+                        <h3>Smart Invert & Reduce Transparency</h3>
+                        <p>The interface uses semantic system colors that automatically adapt to Smart Invert, and respects Reduce Transparency to replace blur effects with solid backgrounds when needed.</p>
+                        <span class="tag">Vision</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Languages -->
+    <section class="languages" id="languages">
+        <div class="container">
+            <div class="section-header">
+                <h2>Accessible in 15 languages</h2>
+                <p>Every accessibility label, hint, and announcement is fully localized — not just the interface, but the accessibility layer too.</p>
+            </div>
+            <div class="lang-grid">
+                <div class="lang-item">
+                    <div class="flag">🇬🇧</div>
+                    <div class="name">English</div>
+                </div>
+                <div class="lang-item">
+                    <div class="flag">🇪🇸</div>
+                    <div class="name">Spanish</div>
+                </div>
+                <div class="lang-item">
+                    <div class="flag">🇫🇷</div>
+                    <div class="name">French</div>
+                </div>
+                <div class="lang-item">
+                    <div class="flag">🇩🇪</div>
+                    <div class="name">German</div>
+                </div>
+                <div class="lang-item">
+                    <div class="flag">🇮🇹</div>
+                    <div class="name">Italian</div>
+                </div>
+                <div class="lang-item">
+                    <div class="flag">🇧🇷</div>
+                    <div class="name">Portuguese (BR)</div>
+                </div>
+                <div class="lang-item">
+                    <div class="flag">🇵🇹</div>
+                    <div class="name">Portuguese (PT)</div>
+                </div>
+                <div class="lang-item">
+                    <div class="flag">🇷🇺</div>
+                    <div class="name">Russian</div>
+                </div>
+                <div class="lang-item">
+                    <div class="flag">🇹🇷</div>
+                    <div class="name">Turkish</div>
+                </div>
+                <div class="lang-item">
+                    <div class="flag">🇵🇱</div>
+                    <div class="name">Polish</div>
+                </div>
+                <div class="lang-item">
+                    <div class="flag">🇳🇱</div>
+                    <div class="name">Dutch</div>
+                </div>
+                <div class="lang-item">
+                    <div class="flag">🇬🇷</div>
+                    <div class="name">Greek</div>
+                </div>
+                <div class="lang-item">
+                    <div class="flag">🇮🇩</div>
+                    <div class="name">Indonesian</div>
+                </div>
+                <div class="lang-item">
+                    <div class="flag">🇻🇳</div>
+                    <div class="name">Vietnamese</div>
+                </div>
+                <div class="lang-item">
+                    <div class="flag">🇺🇦</div>
+                    <div class="name">Ukrainian</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="commitment" id="download">
+        <div class="container">
+            <h2>Training is for everyone</h2>
+            <p>No barriers. No exceptions. Download Caliscool and start your journey — your way.</p>
+            <a href="https://apps.apple.com/app/id6758521484" class="btn-primary">
+                <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+                    <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+                </svg>
+                Download on App Store
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <a href="index.html" class="logo">Caliscool</a>
+            <ul class="footer-links">
+                <li><a href="support.html">Support</a></li>
+                <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                <li><a href="accessibility.html">Accessibility</a></li>
+                <li><a href="mailto:joamaferapps@gmail.com">Contact</a></li>
+            </ul>
+            <p class="copyright">&copy; 2026 Caliscool. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
